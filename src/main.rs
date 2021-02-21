@@ -11,6 +11,8 @@ use util::app::get_arg;
 use std::process::exit;
 use pnet::datalink;
 use pnet::datalink::Channel::Ethernet;
+use std::io::Error;
+use pnet::packet::ethernet::{EtherTypes, EthernetPacket};
 
 fn main() {
     env::set_var("RUST_LOG", "debug");
@@ -36,6 +38,25 @@ fn main() {
     };
 
     loop {
-        
+        match rx.next() {
+            Ok(frame) => {
+                // 受信パケットからイーサネットフレームを構築
+                let frame = EthernetPacket::new(frame).unwrap();
+                match frame.get_ethertype() {
+                    EtherTypes::Ipv4 => {
+                        handler::ip::v4_handler(&frame);
+                    },
+                    EtherTypes::Ipv6 => {
+                        handler::ip::v6_handler(&frame);
+                    },
+                    _ => {
+                        info!("This packet is neither IPv4 not  IPv6");
+                    }
+                }
+            }
+            Err(e) => {
+                error!("Failed to read: {}", e);
+            }
+        }
     }
 }
