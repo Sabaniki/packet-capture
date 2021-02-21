@@ -1,9 +1,7 @@
-use pnet::packet::ethernet::{EtherTypes, EthernetPacket};
+use pnet::packet::ethernet::EthernetPacket;
 use pnet::packet::ip::IpNextHeaderProtocols;
 use pnet::packet::ipv4::Ipv4Packet;
 use pnet::packet::ipv6::Ipv6Packet;
-use pnet::packet::tcp::TcpPacket;
-use pnet::packet::udp::UdpPacket;
 use pnet::packet::Packet;
 use crate::handler::transport::{tcp_handler, udp_handler};
 
@@ -18,7 +16,7 @@ pub fn v4_handler(ethernet: &EthernetPacket) {
                 udp_handler(&packet);
             }
             _ => {
-                info!("This packet is not TCP or UDP");
+                info!("This packet is neither TCP nor UDP");
             }
         }
     }

@@ -11,7 +11,6 @@ use util::app::get_arg;
 use std::process::exit;
 use pnet::datalink;
 use pnet::datalink::Channel::Ethernet;
-use std::io::Error;
 use pnet::packet::ethernet::{EtherTypes, EthernetPacket};
 
 fn main() {
@@ -34,7 +33,9 @@ fn main() {
     ) {
         Ok(Ethernet(tx, rx)) => (tx, rx),
         Ok(_) => panic!("Unhandled channel type"),
-        Err(e) => panic!("Failed to create data-link channel {}", e)
+        Err(_) => {
+            error!("Failed to create data link-channel. Try to run with sudo.")
+        }
     };
 
     loop {

@@ -39,8 +39,8 @@ pub fn print_packet_info(l3: &dyn GettableEndPoints, l4: &dyn GettableEndPoints,
                 if payload[j].is_ascii_alphabetic() {
                     print!("{}", payload[j] as char);
                 } else {
-                    // 非ascii文字は?として表示
-                    print!("?");
+                    // 非ascii文字は.として表示
+                    print!(".");
                 }
             }
             println!();
