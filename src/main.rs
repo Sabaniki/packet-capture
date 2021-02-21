@@ -34,7 +34,8 @@ fn main() {
         Ok(Ethernet(tx, rx)) => (tx, rx),
         Ok(_) => panic!("Unhandled channel type"),
         Err(_) => {
-            error!("Failed to create data link-channel. Try to run with sudo.")
+            error!("Failed to create data link-channel. Try to run with sudo.");
+            exit(-1);
         }
     };
 

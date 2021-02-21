@@ -33,7 +33,7 @@ pub fn v6_handler(ethernet: &EthernetPacket) {
                 udp_handler(&packet);
             }
             _ => {
-                info!("This packet is not TCP or UDP");
+                info!("This packet is neither TCP nor UDP");
             }
         }
     }
