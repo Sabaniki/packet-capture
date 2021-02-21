@@ -52,7 +52,7 @@ fn main() {
                         handler::ip::v6_handler(&frame);
                     },
                     _ => {
-                        info!("This packet is neither IPv4 not  IPv6");
+                        info!("This packet is neither IPv4 nor IPv6");
                     }
                 }
             }
